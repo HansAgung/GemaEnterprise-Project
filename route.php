@@ -2,7 +2,7 @@
 session_start();
 require_once 'config/check_session.php';
 
-$page = isset($_GET['page']) ? $_GET['page'] : (isset($_SESSION['login']) ? '' : 'login');
+$page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
 // Cek session, jika habis tampilkan modal
 $session_valid = check_session();

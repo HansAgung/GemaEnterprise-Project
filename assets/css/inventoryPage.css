@@ -1,0 +1,12 @@
+body { background-color: #06bd0c; color: #ffffff; }
+.navbar { background-color: #023e8a !important; }
+.card, .table { background-color: #0077b6; color: #ffffff; }
+.table th, .table td { border-color: #0096c7; }
+.btn-primary { background-color: #0096c7; border-color: #0096c7; }
+.btn-success { background-color: #0077b6; border-color: #0077b6; }
+.btn-info { background-color: #023e8a; border-color: #023e8a; }
+.nav-tabs .nav-link { background-color: #0077b6; color: #ffffff; border-color: #0096c7; }
+.nav-tabs .nav-link.active { background-color: #0096c7; }
+.sidebar { background-color: #5296f0; color: #ffffff; min-height: 100vh;    }
+.sidebar a { color: #ffffff; text-decoration: none; }
+.sidebar a:hover { color: #d5ecf4; }
