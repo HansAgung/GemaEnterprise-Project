@@ -59,7 +59,20 @@ $restock_json = json_encode($barang);
 
         /* Main Card Layout */
         .main-card { background: #fff; border-radius: 15px; padding: 15px; height: 100%; border: 1px solid #e2e8f0; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .scroll-area { overflow-y: auto; flex-grow: 1; padding-right: 5px; }
+        .scroll-area { 
+    overflow-y: auto; 
+    flex-grow: 1; 
+    padding-right: 5px;
+    min-height: 0; /* KUNCI UTAMA: Memungkinkan flex child untuk mengecil lebih kecil dari kontennya */
+}
+
+/* Pastikan header tabel tetap terlihat saat di-scroll */
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: white !important;
+}
         .scroll-area::-webkit-scrollbar { width: 4px; }
         .scroll-area::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
@@ -149,21 +162,34 @@ $restock_json = json_encode($barang);
                     </div>
                 </div>
             </div>
-            <div class="col-8">
-                <div class="main-card">
-                    <h6 class="fw-bold mb-2 small">Live Inventory Management</h6>
-                    <div class="scroll-area">
-                        <table class="table table-sm table-hover" style="font-size: 12px;">
-                            <thead class="sticky-top bg-white"><tr><th>ITEM</th><th>STATUS</th><th>RESTOCK TARGET</th></tr></thead>
-                            <tbody>
-                                <?php foreach($barang as $b): ?>
-                                    <tr><td class="fw-bold"><?= $b['nama'] ?></td><td><span class="badge bg-light text-dark border"><?= $b['status'] ?></span></td><td><?= $b['restock_date'] ?></td></tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <div class="col-8 h-100"> <div class="main-card">
+        <h6 class="fw-bold mb-2 small">Live Inventory Management</h6>
+        <div class="scroll-area">
+            <table class="table table-sm table-hover mb-0" style="font-size: 12px;">
+                <thead class="sticky-top bg-white" style="box-shadow: 0 2px 2px -1px rgba(0,0,0,0.05);">
+                    <tr>
+                        <th class="py-2">ITEM</th>
+                        <th class="py-2">STATUS</th>
+                        <th class="py-2">RESTOCK TARGET</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($barang as $b): ?>
+                        <tr>
+                            <td class="fw-bold py-2"><?= $b['nama'] ?></td>
+                            <td>
+                                <span class="badge bg-light text-dark border">
+                                    <?= $b['status'] ?>
+                                </span>
+                            </td>
+                            <td><?= $b['restock_date'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
         </div>
     </div>
 </div>
