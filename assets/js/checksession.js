@@ -13,7 +13,7 @@ setInterval(function() {
         }
     })
     .catch(error => console.error('Error checking session'));
-}, 2000); // Ubah ke 2 detik
+}, 1800); // Ubah ke 2 detik
 
 function checkSessionAndAction() {
     fetch('./config/check_session.php', { method: 'POST' })

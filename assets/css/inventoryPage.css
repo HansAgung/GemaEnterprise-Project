@@ -1,12 +1,84 @@
-body { background-color: #06bd0c; color: #ffffff; }
-.navbar { background-color: #023e8a !important; }
-.card, .table { background-color: #0077b6; color: #ffffff; }
-.table th, .table td { border-color: #0096c7; }
-.btn-primary { background-color: #0096c7; border-color: #0096c7; }
-.btn-success { background-color: #0077b6; border-color: #0077b6; }
-.btn-info { background-color: #023e8a; border-color: #023e8a; }
-.nav-tabs .nav-link { background-color: #0077b6; color: #ffffff; border-color: #0096c7; }
-.nav-tabs .nav-link.active { background-color: #0096c7; }
-.sidebar { background-color: #5296f0; color: #ffffff; min-height: 100vh;    }
-.sidebar a { color: #ffffff; text-decoration: none; }
-.sidebar a:hover { color: #d5ecf4; }
+:root {
+    --sidebar-mini: 70px;
+    --sidebar-full: 250px;
+    --bg-dark: #0b1120;
+    --sidebar-bg: #0d1b2a;
+    --accent-teal: #00d1b2;
+    --card-bg: #1e293b;
+}
+
+body {
+    background-color: var(--bg-dark);
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+#sidebar {
+    width: var(--sidebar-mini) !important;
+    position: sticky !important; /* Agar sidebar tetap di tempat saat scroll */
+    top: 0;
+    height: 100vh;
+    left: 0 !important;
+    background: var(--sidebar-bg) !important;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    z-index: 1000;
+}
+
+/* Hover Effect: Melebar */
+#sidebar:hover {
+    width: var(--sidebar-full) !important;
+}
+
+/* Logo & Teks: Sembunyikan saat ciut, munculkan saat hover */
+#sidebar .menu-name, 
+#sidebar .logo-text, 
+#sidebar h5,
+#sidebar .btn-text {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* Agar tidak bisa diklik saat transparan */
+}
+
+#sidebar:hover .menu-name, 
+#sidebar:hover .logo-text, 
+#sidebar:hover h5,
+#sidebar:hover .btn-text {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Penanda Menu Aktif */
+.nav-link.active, .nav-link-custom.active {
+    background: rgba(0, 209, 178, 0.1) !important;
+    color: var(--accent-teal) !important;
+    border-left: 4px solid var(--accent-teal);
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    background: var(--bg-dark);
+    min-width: 0; /* Mencegah chart merusak layout */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Custom Style */
+.card-custom {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 20px;
+    border: none;
+    height: 100%;
+}

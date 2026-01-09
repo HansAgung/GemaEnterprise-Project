@@ -23,7 +23,7 @@ if (!$session_valid) {
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                 </div>
                 <div class='modal-body'>
-                    Sesi kamu telah habis! Silakan login kembali.
+                    Waktu habis, Ulanggg!!
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-primary' onclick='window.location.href=\"?page=login\"'>Login</button>

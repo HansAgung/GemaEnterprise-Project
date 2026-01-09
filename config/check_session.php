@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 function check_session() {
-    $timeout_duration = 1800; // Ubah ke 3 detik untuk test cepat
+    $timeout_duration = 1800;
 
     if (!isset($_SESSION['last_activity'])) {
         return false;

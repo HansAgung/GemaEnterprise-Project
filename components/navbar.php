@@ -1,10 +1,9 @@
-<?php
-// Komponen Navbar Statis
-$pageTitle = $pageTitle ?? 'GemaEnterprise';
-?>
-<nav class="navbar navbar-dark bg-primary" style="z-index: 1050; position: relative;">
-    <div class="container-fluid">
-        <span class="navbar-toggler-icon" id="sidebarToggle" onclick="toggleSidebar()" style="cursor: pointer; transition: all 0.3s ease; font-size: 1rem;"></span>
-        <a class="navbar-brand ms-3" href="#"><?php echo $pageTitle; ?></a>
+<nav class="navbar-custom d-flex justify-content-between align-items-center px-4 py-3 border-bottom border-secondary">
+    <div class="page-info">
+        <h5 class="mb-0 fw-bold text-white"><?php echo ucfirst($current_page); ?> Module</h5>
+    </div>
+    <div class="user-profile d-flex align-items-center">
+        <span class="text-muted small me-3">Admin Gema</span>
+        <div class="bg-teal rounded-circle" style="width: 35px; height: 35px; background: var(--accent-teal)"></div>
     </div>
 </nav>
