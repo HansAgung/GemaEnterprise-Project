@@ -52,6 +52,24 @@ switch($page){
     case 'kasir':
         include "modules/KasirModule/kasir.php";
         break;
+    case 'staff':
+        include "modules/StaffModule/staff.php";
+        break;
+    case 'branch':
+        include "modules/BranchModule/branch.php";
+        break;
+    case 'procurement':
+        include "modules/ManagementModule/procurement.php";
+        break;
+    case 'branch':
+        include "modules/BranchModule/branch.php";
+        break;
+    case 'branch':
+        include "modules/BranchModule/branch.php";
+        break;
+    case 'branch':
+        include "modules/BranchModule/branch.php";
+        break;
     default:
         echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' rel='stylesheet'><script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js'></script></head><body>";
         echo "<h1>Halo selamat Datang!</h1>";

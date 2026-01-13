@@ -11,24 +11,21 @@
         :root {
             --accent-teal: #00d1b2;
             --dark-navy: #0d1b2a;
-            --sidebar-width: 250px; /* Sesuaikan dengan lebar sidebar.php anda */
+            --sidebar-width: 250px;
         }
 
         body, html {
             height: 100%;
             margin: 0;
-            overflow: hidden; /* Mencegah scroll seluruh halaman */
+            overflow: hidden;
             background-color: #f8fafc;
         }
 
-        /* Layout Utama */
         #wrapper {
             display: flex;
             width: 100vw;
             height: 100vh;
         }
-
-     
 
         #page-content-wrapper {
             flex-grow: 1;
@@ -38,14 +35,13 @@
             min-width: 0;
         }
 
-        /* Container Kasir */
         .kasir-container {
             flex-grow: 1;
             display: flex;
             flex-direction: row;
             gap: 1rem;
             padding: 1rem;
-            min-height: 0; /* Penting untuk internal scroll */
+            min-height: 0;
         }
 
         .card-custom {
@@ -57,7 +53,6 @@
             flex-direction: column;
         }
 
-        /* Area Kiri: Produk */
         .product-section {
             flex: 2;
             display: flex;
@@ -71,7 +66,6 @@
             padding: 0.5rem;
         }
 
-        /* Area Kanan: Sidebar POS */
         .pos-sidebar {
             flex: 1;
             display: flex;
@@ -92,17 +86,16 @@
             padding-right: 5px;
         }
 
-        /* Kartu Produk */
         .product-card {
             transition: all 0.2s;
-            cursor: pointer;
             border: 1px solid #f1f5f9;
-            height: 130px;
+            height: 145px; /* Sedikit ditambah untuk menampung button */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
         }
 
         .product-card:hover {
@@ -111,7 +104,33 @@
             box-shadow: 0 4px 12px rgba(0, 209, 178, 0.1);
         }
 
-        /* Custom Scrollbar */
+        /* Tambahan Style untuk Quantity Button di Card */
+        .card-qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .btn-qty-sm {
+            padding: 0;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 1px solid var(--accent-teal);
+            background: white;
+            color: var(--accent-teal);
+            cursor: pointer;
+        }
+
+        .btn-qty-sm:hover {
+            background: var(--accent-teal);
+            color: white;
+        }
+
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 10px; }
@@ -123,75 +142,18 @@
 <body>
 
 <?php
-// Data Dummy Produk (Sama seperti sebelumnya)
 $produk = [
-        // --- MAKANAN ---
-        ['id' => 1, 'nama' => 'Nasi Goreng Special', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🍳'],
-        ['id' => 2, 'nama' => 'Ayam Bakar Madu', 'harga' => 20000, 'kategori' => 'Makanan', 'img' => '🍗'],
-        ['id' => 3, 'nama' => 'Mie Goreng Seafood', 'harga' => 18000, 'kategori' => 'Makanan', 'img' => '🍝'],
-        ['id' => 4, 'nama' => 'Sate Ayam Madura', 'harga' => 25000, 'kategori' => 'Makanan', 'img' => '🍢'],
-        ['id' => 5, 'nama' => 'Bakso Mercon', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🥣'],
-        ['id' => 6, 'nama' => 'Nasi Padang Komplit', 'harga' => 22000, 'kategori' => 'Makanan', 'img' => '🍛'],
-        ['id' => 7, 'nama' => 'Gado-Gado Betawi', 'harga' => 12000, 'kategori' => 'Makanan', 'img' => '🥗'],
-        ['id' => 8, 'nama' => 'Soto Ayam Lamongan', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🍲'],
-        ['id' => 9, 'nama' => 'Ikan Bakar Nila', 'harga' => 35000, 'kategori' => 'Makanan', 'img' => '🐟'],
-        ['id' => 10, 'nama' => 'Rawon Daging', 'harga' => 25000, 'kategori' => 'Makanan', 'img' => '🥘'],
-        ['id' => 11, 'nama' => 'Nasi Uduk Betawi', 'harga' => 10000, 'kategori' => 'Makanan', 'img' => '🍚'],
-        ['id' => 12, 'nama' => 'Bebek Goreng Kremes', 'harga' => 28000, 'kategori' => 'Makanan', 'img' => '🦆'],
-        ['id' => 13, 'nama' => 'Capcay Seafood', 'harga' => 17000, 'kategori' => 'Makanan', 'img' => '🥦'],
-        ['id' => 14, 'nama' => 'Kwetiau Goreng Sapi', 'harga' => 20000, 'kategori' => 'Makanan', 'img' => '🍜'],
-        ['id' => 15, 'nama' => 'Pempek Kapal Selam', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🥟'],
-        ['id' => 16, 'nama' => 'Gulai Kambing', 'harga' => 30000, 'kategori' => 'Makanan', 'img' => '🐐'],
-        ['id' => 17, 'nama' => 'Ayam Geprek Level 5', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🌶️'],
-        ['id' => 18, 'nama' => 'Pepes Ikan Mas', 'harga' => 18000, 'kategori' => 'Makanan', 'img' => '🍃'],
-        ['id' => 19, 'nama' => 'Nasi Kuning Ultah', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🎂'],
-        ['id' => 20, 'nama' => 'Tongseng Sapi', 'harga' => 25000, 'kategori' => 'Makanan', 'img' => '🥩'],
-
-        // --- MINUMAN ---
-        ['id' => 21, 'nama' => 'Es Teh Manis', 'harga' => 5000, 'kategori' => 'Minuman', 'img' => '🍹'],
-        ['id' => 22, 'nama' => 'Jus Jeruk Segar', 'harga' => 8000, 'kategori' => 'Minuman', 'img' => '🍊'],
-        ['id' => 23, 'nama' => 'Kopi Susu Gula Aren', 'harga' => 12000, 'kategori' => 'Minuman', 'img' => '☕'],
-        ['id' => 24, 'nama' => 'Es Degan Murni', 'harga' => 10000, 'kategori' => 'Minuman', 'img' => '🥥'],
-        ['id' => 25, 'nama' => 'Thai Tea Original', 'harga' => 10000, 'kategori' => 'Minuman', 'img' => '🧋'],
-        ['id' => 26, 'nama' => 'Soda Gembira', 'harga' => 12000, 'kategori' => 'Minuman', 'img' => '🥤'],
-        ['id' => 27, 'nama' => 'Jus Alpukat Kocok', 'harga' => 15000, 'kategori' => 'Minuman', 'img' => '🥑'],
-        ['id' => 28, 'nama' => 'Wedang Jahe Hangat', 'harga' => 7000, 'kategori' => 'Minuman', 'img' => '🍵'],
-        ['id' => 29, 'nama' => 'Es Campur Spesial', 'harga' => 15000, 'kategori' => 'Minuman', 'img' => '🍧'],
-        ['id' => 30, 'nama' => 'Green Tea Latte', 'harga' => 15000, 'kategori' => 'Minuman', 'img' => '🍃'],
-        ['id' => 31, 'nama' => 'Es Doger', 'harga' => 10000, 'kategori' => 'Minuman', 'img' => '🥣'],
-        ['id' => 32, 'nama' => 'Lemon Tea Ice', 'harga' => 7000, 'kategori' => 'Minuman', 'img' => '🍋'],
-        ['id' => 33, 'nama' => 'Kopi Hitam Mantap', 'harga' => 5000, 'kategori' => 'Minuman', 'img' => '🖤'],
-        ['id' => 34, 'nama' => 'Es Milo Dinosaurus', 'harga' => 12000, 'kategori' => 'Minuman', 'img' => '🦖'],
-        ['id' => 35, 'nama' => 'Jus Mangga Arumanis', 'harga' => 10000, 'kategori' => 'Minuman', 'img' => '🥭'],
-        ['id' => 36, 'nama' => 'Mineral Water 600ml', 'harga' => 4000, 'kategori' => 'Minuman', 'img' => '💧'],
-        ['id' => 37, 'nama' => 'Cappuccino Hot', 'harga' => 15000, 'kategori' => 'Minuman', 'img' => '🥛'],
-        ['id' => 38, 'nama' => 'Es Cincau Serut', 'harga' => 8000, 'kategori' => 'Minuman', 'img' => '🧊'],
-        ['id' => 39, 'nama' => 'Jus Sirsak Madu', 'harga' => 12000, 'kategori' => 'Minuman', 'img' => '🍐'],
-        ['id' => 40, 'nama' => 'Matcha Cold Brew', 'harga' => 18000, 'kategori' => 'Minuman', 'img' => '🧤'],
-
-        // --- SNACK ---
-        ['id' => 41, 'nama' => 'Roti Bakar Coklat', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🍞'],
-        ['id' => 42, 'nama' => 'Coklat Bar Premium', 'harga' => 12000, 'kategori' => 'Snack', 'img' => '🍫'],
-        ['id' => 43, 'nama' => 'Kentang Goreng McD', 'harga' => 12000, 'kategori' => 'Snack', 'img' => '🍟'],
-        ['id' => 44, 'nama' => 'Pisang Goreng Keju', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🍌'],
-        ['id' => 45, 'nama' => 'Donat Hias Cantik', 'harga' => 7000, 'kategori' => 'Snack', 'img' => '🍩'],
-        ['id' => 46, 'nama' => 'Martabak Manis Mini', 'harga' => 15000, 'kategori' => 'Snack', 'img' => '🥞'],
-        ['id' => 47, 'nama' => 'Dimsum Ayam (4pcs)', 'harga' => 15000, 'kategori' => 'Snack', 'img' => '🍱'],
-        ['id' => 48, 'nama' => 'Siomay Bandung', 'harga' => 12000, 'kategori' => 'Snack', 'img' => '🥟'],
-        ['id' => 49, 'nama' => 'Tahu Bakso Goreng', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🧊'],
-        ['id' => 50, 'nama' => 'Mendoan Purwokerto', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🥓'],
-        ['id' => 51, 'nama' => 'Sosis Bakar Jumbo', 'harga' => 15000, 'kategori' => 'Snack', 'img' => '🌭'],
-        ['id' => 52, 'nama' => 'Burger Mini', 'harga' => 12000, 'kategori' => 'Snack', 'img' => '🍔'],
-        ['id' => 53, 'nama' => 'Sandwich Sehat', 'harga' => 15000, 'kategori' => 'Snack', 'img' => '🥪'],
-        ['id' => 54, 'nama' => 'Croissant Butter', 'harga' => 18000, 'kategori' => 'Snack', 'img' => '🥐'],
-        ['id' => 55, 'nama' => 'Pukis Lumer', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🧁'],
-        ['id' => 56, 'nama' => 'Onion Ring Crispy', 'harga' => 12000, 'kategori' => 'Snack', 'img' => '⭕'],
-        ['id' => 57, 'nama' => 'Singkong Keju', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🥔'],
-        ['id' => 58, 'nama' => 'Kue Cubit ½ Matang', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🥠'],
-        ['id' => 59, 'nama' => 'Bakwan Jagung Manis', 'harga' => 8000, 'kategori' => 'Snack', 'img' => '🌽'],
-        ['id' => 60, 'nama' => 'Macaroni Schotel', 'harga' => 20000, 'kategori' => 'Snack', 'img' => '🧀'],
-    ];
-    ?>
+    ['id' => 1, 'nama' => 'Nasi Goreng Special', 'harga' => 15000, 'kategori' => 'Makanan', 'img' => '🍳'],
+    ['id' => 2, 'nama' => 'Ayam Bakar Madu', 'harga' => 20000, 'kategori' => 'Makanan', 'img' => '🍗'],
+    ['id' => 3, 'nama' => 'Mie Goreng Seafood', 'harga' => 18000, 'kategori' => 'Makanan', 'img' => '🍝'],
+    ['id' => 4, 'nama' => 'Sate Ayam Madura', 'harga' => 25000, 'kategori' => 'Makanan', 'img' => '🍢'],
+    ['id' => 21, 'nama' => 'Es Teh Manis', 'harga' => 5000, 'kategori' => 'Minuman', 'img' => '🍹'],
+    ['id' => 22, 'nama' => 'Jus Jeruk Segar', 'harga' => 8000, 'kategori' => 'Minuman', 'img' => '🍊'],
+    ['id' => 41, 'nama' => 'Roti Bakar Coklat', 'harga' => 10000, 'kategori' => 'Snack', 'img' => '🍞'],
+    ['id' => 43, 'nama' => 'Kentang Goreng McD', 'harga' => 12000, 'kategori' => 'Snack', 'img' => '🍟'],
+    // ... data lainnya
+];
+?>
 
 <div id="wrapper">
     <div class="sidebar-wrapper">
@@ -199,13 +161,11 @@ $produk = [
     </div>
 
     <div id="page-content-wrapper">
-        
         <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-2">
             <h5 class="fw-bold m-0 text-dark">Point of Sale (POS)</h5>
         </nav>
 
         <div class="kasir-container">
-            
             <div class="product-section">
                 <div class="card card-custom h-100 p-3">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -225,10 +185,16 @@ $produk = [
                         <div class="row g-2" id="product-grid">
                             <?php foreach ($produk as $item): ?>
                             <div class="col-md-3 col-sm-4 product-item" data-category="<?= $item['kategori']; ?>">
-                                <div class="card card-custom product-card p-2" onclick="addToCart(<?= $item['id']; ?>, '<?= $item['nama']; ?>', <?= $item['harga']; ?>)">
+                                <div class="card card-custom product-card p-2">
                                     <div class="fs-2"><?= $item['img']; ?></div>
                                     <div class="fw-bold small text-dark mt-1 text-truncate w-100"><?= $item['nama']; ?></div>
                                     <div class="text-primary fw-bold small">Rp <?= number_format($item['harga'], 0, ',', '.'); ?></div>
+                                    
+                                    <div class="card-qty-controls">
+                                        <button class="btn-qty-sm" onclick="updateQty(<?= $item['id']; ?>, '<?= $item['nama']; ?>', <?= $item['harga']; ?>, -1)">-</button>
+                                        <span class="fw-bold small" id="card-qty-<?= $item['id']; ?>">0</span>
+                                        <button class="btn-qty-sm" onclick="updateQty(<?= $item['id']; ?>, '<?= $item['nama']; ?>', <?= $item['harga']; ?>, 1)">+</button>
+                                    </div>
                                 </div>
                             </div>
                             <?php endforeach; ?>
@@ -238,7 +204,6 @@ $produk = [
             </div>
 
             <div class="pos-sidebar">
-                
                 <div class="card card-custom p-3 bill-card">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h6 class="fw-bold m-0">Bill Order</h6>
@@ -261,9 +226,7 @@ $produk = [
                             <span class="fw-bold text-dark">Total</span>
                             <span class="fw-bold text-primary fs-5" id="total-price">Rp 0</span>
                         </div>
-                        <button class="btn btn-primary w-100 fw-bold py-2" onclick="checkout()">
-                            PROSES PEMBAYARAN
-                        </button>
+                        <button class="btn btn-primary w-100 fw-bold py-2" onclick="checkout()">PROSES PEMBAYARAN</button>
                     </div>
                 </div>
 
@@ -287,20 +250,41 @@ $produk = [
                         </div>
                     </div>
                 </div>
-
-            </div> </div> </div> </div> 
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     let cart = [];
 
-    function addToCart(id, name, price) {
-        const existing = cart.find(item => item.id === id);
-        if (existing) {
-            existing.qty++;
-        } else {
+    // Fungsi Gabungan untuk Tambah dan Kurang Qty
+    function updateQty(id, name, price, change) {
+        const index = cart.findIndex(item => item.id === id);
+
+        if (index > -1) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+        } else if (change > 0) {
             cart.push({ id, name, price, qty: 1 });
         }
+        
         renderCart();
+        syncCardQuantities();
+    }
+
+    // Fungsi untuk memperbarui tampilan angka di tiap Card
+    function syncCardQuantities() {
+        // Reset semua angka di card dulu ke 0
+        document.querySelectorAll('[id^="card-qty-"]').forEach(el => el.textContent = '0');
+        
+        // Isi sesuai data di cart
+        cart.forEach(item => {
+            const el = document.getElementById(`card-qty-${item.id}`);
+            if (el) el.textContent = item.qty;
+        });
     }
 
     function renderCart() {
@@ -318,7 +302,7 @@ $produk = [
         cartList.innerHTML = '';
         let total = 0;
 
-        cart.forEach((item, index) => {
+        cart.forEach((item) => {
             const subtotalItem = item.price * item.qty;
             total += subtotalItem;
             cartList.innerHTML += `
@@ -329,7 +313,7 @@ $produk = [
                     </div>
                     <div class="text-end">
                         <div class="small fw-bold text-dark">Rp ${subtotalItem.toLocaleString('id-ID')}</div>
-                        <button class="btn btn-sm text-danger p-0" onclick="removeFromCart(${index})"><i class="bi bi-dash-circle"></i></button>
+                        <button class="btn btn-sm text-danger p-0" onclick="updateQty(${item.id}, '', 0, -1)"><i class="bi bi-dash-circle"></i></button>
                     </div>
                 </div>`;
         });
@@ -338,19 +322,11 @@ $produk = [
         totalEl.textContent = 'Rp ' + total.toLocaleString('id-ID');
     }
 
-    function removeFromCart(index) {
-        if(cart[index].qty > 1) {
-            cart[index].qty--;
-        } else {
-            cart.splice(index, 1);
-        }
-        renderCart();
-    }
-
     function clearCart() {
         if(confirm('Hapus semua pesanan?')) {
             cart = [];
             renderCart();
+            syncCardQuantities();
         }
     }
 
@@ -386,6 +362,7 @@ $produk = [
         document.getElementById('namaCustomer').value = '';
         document.getElementById('notes').value = '';
         renderCart();
+        syncCardQuantities();
     }
 </script>
 
